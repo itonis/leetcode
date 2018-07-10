@@ -1,0 +1,32 @@
+class Solution:
+    def eventualSafeNodes(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: List[int]
+        """
+        safe = set()
+        for i in range(len(graph)):
+            if len(graph[i]) == 0:
+                safe.add(i)
+                graph[i].append(-1)
+        if not len(safe):
+            return []
+        
+        last_cleaned = set(safe)
+        while True:
+            cleaned = set()
+            for i in range(len(graph)):
+                for node in last_cleaned:
+                    if node in graph[i]:
+                        graph[i].remove(node)
+                if len(graph[i]) == 0:
+                    graph[i].append(-1)
+                    cleaned.add(i)
+            safe.update(last_cleaned)
+            last_cleaned = cleaned
+            if not len(cleaned):
+                break
+        ret = list(safe)
+        ret.sort()
+        return ret
+        

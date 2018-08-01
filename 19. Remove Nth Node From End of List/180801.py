@@ -12,7 +12,7 @@ class Solution:
         :rtype: ListNode
         """
         cNode = head
-        for i in range(n):
+        for _ in range(n):
             cNode = cNode.next
         if not cNode:
             return head.next
